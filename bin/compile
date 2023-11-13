@@ -65,6 +65,10 @@ else
   mkdir -p "$APT_SOURCELIST_DIR"   # make dir for sources
   cp -f "$BUILD_DIR/Aptfile" "$APT_CACHE_DIR/Aptfile"
   cat "/etc/apt/sources.list" > "$APT_SOURCES"    # no cp here
+
+  topic "Update apt.postgresql.org to apt-archive.postgresql.org"
+  sed -i -e 's,http://apt.postgresql.org/pub/repos/apt/,https://apt-archive.postgresql.org/pub/repos/apt/,g' $APT_SOURCES
+
   # add custom repositories from Aptfile to sources.list
   # like>>    :repo:deb http://cz.archive.ubuntu.com/ubuntu artful main universe
   if grep -q -e "^:repo:" $BUILD_DIR/Aptfile; then
